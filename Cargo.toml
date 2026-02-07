@@ -1,0 +1,45 @@
+[[bin]]
+name = "main"
+path = "src/main.rs"
+
+[[bin]]
+name = "circular_queue"
+path = "src/queue/circular_queue/main.rs"
+
+[package]
+name = "rust-cookbook"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+thiserror = "2.0.18"
+
+[profile.release]
+panic = "unwind"        # 发生错误直接终止，展开堆栈
+opt-level = 3           # 最高等级优化
+lto = "fat"             # 开启胖 LTO，跨 crate 全局优化，虽然编译慢但运行最快
+codegen-units = 1       # 限制为 1 个编译单元，允许编译器进行更彻底的内联优化
+incremental = false     # 关闭增量编译，确保生成的二进制文件最优化
+
+[profile.dev]
+panic = "unwind"
+
+[lints.rust]
+# 禁止使用 unsafe 关键字
+unsafe_code = "forbid"
+# 禁止使用不稳定的（Nightly）特性
+unstable_features = "forbid"
+# 允许存在未使用的代码
+dead_code = "allow"
+
+[lints.clippy]
+# 禁止代码中残留 `todo!()` 宏
+todo = "forbid"
+# 禁止使用 loop {} 空循环
+empty_loop = "forbid"
+# 禁止使用死循环
+infinite_loop = "deny"
+# 禁止调用 std::mem::forget（手动内存泄露）
+mem_forget = "deny"
+# Currently, there are no disallowed methods. This line avoids problems when developing Rustlings.
+#disallowed_methods = "allow"
