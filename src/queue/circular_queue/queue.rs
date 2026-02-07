@@ -1,7 +1,6 @@
 use crate::error::CircularQueueError;
 use std::fmt::Debug;
 
-/// 循环队列
 pub struct CircularQueue<T> {
     /// 使用 [Vec] 模拟循环队列
     ///
@@ -63,7 +62,11 @@ impl<T: Debug> CircularQueue<T> {
         } else {
             // 使用 push 会导致 Vec 不断增加长度，所以这里必须使用下标
             self.data[self.rear] = Some(element);
+
+            // 移动 rear 位置，新位置可能超过队列最大容量（越界）。
+            // 通过对容量取余运算，可以实现 rear 回到队列的起点，达到回环效果
             self.rear = (self.rear + 1) % self.capacity;
+
             Ok(())
         }
     }
@@ -73,9 +76,13 @@ impl<T: Debug> CircularQueue<T> {
         if self.is_empty() {
             None
         } else {
-            // 使用 Option::take 取走数据所有权，原地留下 None
+            // 使用 Option::take 取走数据所有权，取走所有权之后原 Option 会被设置为 None
             let element = self.data[self.front].take();
+
+            // front 与 rear 一样，同样可能存在越界情况。
+            // 所以也需要对容量做取余运算，使 front 回到数组起点
             self.front = (self.front + 1) % self.capacity;
+
             element
         }
     }
