@@ -10,6 +10,10 @@ path = "src/queue/fifo_queue/main.rs"
 name = "circular_queue"
 path = "src/queue/circular_queue/main.rs"
 
+[[bin]]
+name = "stack"
+path = "src/queue/stack/main.rs"
+
 [package]
 name = "rust-cookbook"
 version = "0.1.0"

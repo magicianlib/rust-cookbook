@@ -115,8 +115,7 @@ impl<T: Debug> CircularQueue<T> {
 
 #[cfg(test)]
 mod tests {
-    use crate::error::CircularQueueError;
-    use crate::queue::CircularQueue;
+    use super::*;
 
     #[test]
     fn test_build_invalid_capacity() {
