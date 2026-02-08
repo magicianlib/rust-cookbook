@@ -3,6 +3,10 @@ name = "main"
 path = "src/main.rs"
 
 [[bin]]
+name = "fifo-queue"
+path = "src/queue/fifo_queue/main.rs"
+
+[[bin]]
 name = "circular_queue"
 path = "src/queue/circular_queue/main.rs"
 

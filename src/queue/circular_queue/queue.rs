@@ -89,21 +89,27 @@ impl<T: Debug> CircularQueue<T> {
 
     /// 查看队首元素（只读引用）
     pub fn peek(&self) -> Option<&T> {
-        if self.is_empty() {
-            None
-        } else {
-            // as_ref 将 Option<T> 转换为 Option<&T>
-            self.data[self.front].as_ref()
-        }
+        // if self.is_empty() {
+        //     None
+        // } else {
+        //     // as_ref 将 Option<T> 转换为 Option<&T>
+        //     self.data[self.front].as_ref()
+        // }
+
+        // 简写
+        self.data.get(0).and_then(Option::as_ref)
     }
 
     /// 查看队首元素（可变引用）
     pub fn peek_mut(&mut self) -> Option<&mut T> {
-        if self.is_empty() {
-            None
-        } else {
-            self.data[self.front].as_mut()
-        }
+        // if self.is_empty() {
+        //     None
+        // } else {
+        //     self.data[self.front].as_mut()
+        // }
+
+        // 简写
+        self.data.get_mut(0).and_then(Option::as_mut)
     }
 }
 
